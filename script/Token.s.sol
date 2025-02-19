@@ -5,9 +5,20 @@ import "forge-std/Script.sol";
 import "../src/Token.sol";
 
 contract DeployToken is Script {
-    // Constants for LayerZero endpoints on each chain (for convenience)
-    address constant SEPOLIA_LZ_ENDPOINT = 0xae92d5aD7583AD66E49A0c67BAd18F6ba52dDDc1;
-    address constant HYPERLIQUID_TESTNET_LZ_ENDPOINT = 0x83C7CF6f3aA55b4ac106F7FB1c76dA5D1b3b3aBD;
+    // Hyperliquid Testnet: 998
+    address constant HYPERLIQUID_TESTNET_LZ_ENDPOINT = 0x6Ac7bdc07A0583A362F1497252872AE6c0A5F5B8;
+
+    // Base Mainnet: 8453
+    address constant BASE_MAINNET_LZ_ENDPOINT = 0x1a44076050125825900e736c501f859c50fE728c;
+
+    // Base Sepolia: 84532
+    address constant BASE_SEPOLIA_LZ_ENDPOINT = 0x6EDCE65403992e310A62460808c4b910D972f10f;
+
+    // Ethereum Mainnet: 1  
+    address constant ETHEREUM_MAINNET_LZ_ENDPOINT = 0x1a44076050125825900e736c501f859c50fE728c;
+
+    // Ethereum Sepolia: 11155111
+    address constant SEPOLIA_LZ_ENDPOINT = 0x6EDCE65403992e310A62460808c4b910D972f10f;
 
     function run() external {
         // Determine which network we are on by chainid
@@ -15,9 +26,18 @@ contract DeployToken is Script {
 
         string memory chain_pretty;
         address endpoint;
-        if (chain == 11155111) {
-            chain_pretty = "Sepolia";
+        if (chain == 1) {
+            chain_pretty = "Ethereum Mainnet";
+            endpoint = ETHEREUM_MAINNET_LZ_ENDPOINT;
+        } else if (chain == 11155111) {
+            chain_pretty = "Ethereum Sepolia";
             endpoint = SEPOLIA_LZ_ENDPOINT;
+        } else if (chain == 8453) {
+            chain_pretty = "Base Mainnet"; 
+            endpoint = BASE_MAINNET_LZ_ENDPOINT;
+        } else if (chain == 84532) {
+            chain_pretty = "Base Sepolia";
+            endpoint = BASE_SEPOLIA_LZ_ENDPOINT;
         } else if (chain == 998) {
             chain_pretty = "Hyperliquid Testnet";
             endpoint = HYPERLIQUID_TESTNET_LZ_ENDPOINT;
